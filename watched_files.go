@@ -11,9 +11,9 @@ const (
 	WORK_DIR        = "/home/sangnd/..."
 	WORK_DIR_COMMON = "/home/sangnd/Desktop/..."
 	buffer          = 8192
-	from            = ""
-	password        = ""
-	to              = ""
+	from            = "sangnd@vnext.vn"
+	password        = "kbpgmxbwbhyfekcc"
+	to              = "sangnd@vnext.vn"
 	subject         = "Report file has changed!"
 )
 
@@ -21,8 +21,8 @@ func main() {
 
 	c := make(chan notify.EventInfo, buffer)
 	done := make(chan bool)
-	//go watchUsr(c)
-	go watchCommon(c)
+	go watch(c, WORK_DIR)
+	go watch(c, WORK_DIR_COMMON)
 	go watchResult(c)
 	<-done
 	defer notify.Stop(c)
@@ -31,18 +31,9 @@ func main() {
 }
 
 //set watcher
-func watchUsr(c chan notify.EventInfo) {
+func watch(c chan notify.EventInfo, workdir string) {
 	for {
-		if err := notify.Watch(WORK_DIR, c, notify.Rename); err != nil {
-			log.Fatal(err)
-		}
-	}
-}
-
-//set watcher
-func watchCommon(c chan notify.EventInfo) {
-	for {
-		if err := notify.Watch(WORK_DIR_COMMON, c, notify.Rename); err != nil {
+		if err := notify.Watch(workdir, c, notify.Rename); err != nil {
 			log.Fatal(err)
 		}
 	}
