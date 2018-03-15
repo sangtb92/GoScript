@@ -10,7 +10,7 @@ import (
 const (
 	WORK_DIR        = "/home/sangnd/..."
 	WORK_DIR_COMMON = "/home/sangnd/Desktop/..."
-	buffer          = 8192
+	buffer          = 8192//proc/sys/fs/inotify/max_user_watches
 	from            = "sangnd@vnext.vn"
 	password        = "kbpgmxbwbhyfekcc"
 	to              = "sangnd@vnext.vn"
