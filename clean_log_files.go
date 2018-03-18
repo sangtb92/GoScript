@@ -11,7 +11,7 @@ import (
 
 const LOG_DIR = "/var/log/"
 const LOG_FILE_SIZE = 1000000000
-const FROM_EMAIL = "spiraltest@vnext.vn"
+const FROM_EMAIL = ""
 
 func main() {
 	var validFileNames []string
@@ -46,8 +46,8 @@ func main() {
 
 func sendMail(fileNames []string) {
 	from := FROM_EMAIL
-	pass := "iujebqtqslortspq"
-	to := "hongtt@vnext.vn"
+	pass := ""
+	to := ""
 	msg := generateMsg(from, to, "List log files have cleaned", fileNames)
 	err := smtp.SendMail("smtp.gmail.com:587",
 		smtp.PlainAuth("", from, pass, "smtp.gmail.com"),
