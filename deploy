@@ -1,0 +1,25 @@
+WORK_DIR=/opt/apps
+ROOT_APP=/opt/apps/pos/current/pms-fab/
+cd $WORK_DIR
+
+# active python env
+source ./venv/bin/activate
+
+# active config env
+source ./env
+
+# go root app & pull from BRANCH - default
+cd $ROOT_APP && git pull
+
+# go root python app and install depend
+cd $ROOT_APP && pip install -r requirements.txt
+
+# go root app and migrate db, collect static
+cd $ROOT_APP && python cms_manage.py migrate
+cd $ROOT_APP && python cms_manage.py collectstatic
+
+# go workdir and restart app
+cd $WORK_DIR && sh start_cms_prod
+
+# go workdir and log
+# cd $WORK_DIR && tail -100f logs/prod_cms_uwsgi.log
