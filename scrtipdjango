@@ -1,0 +1,3 @@
+source /opt/apps/pos/current/env && uwsgi --ini /opt/apps/pos/current/etc/uwsgi.ini
+uwsgi --stop /opt/apps/pos/current/run/pos.pid
+uwsgi --reload /opt/apps/pos/current/run/pos.pid
