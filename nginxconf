@@ -1,0 +1,22 @@
+upstream pospms {
+    server unix:///opt/apps/fab/current/run/pos.sock
+}
+
+server {
+
+    ## base settings
+
+    listen 80;
+    server_name pos.tmgpms.com;
+    ## access log settings
+    access_log  /opt/apps/fab/current/logs/nginx_access_log main;
+    error_log   /opt/apps/fab/current/logs/nginx_error_log;
+    ## location
+    location / {
+	uwsgi_pass  pospms;
+        include     /etc/nginx/uwsgi_params;
+        proxy_read_timeout 150;
+        auth_basic "Restricted Content";
+        auth_basic_user_file /etc/nginx/.httpasswd;
+	}
+}
